@@ -1,3 +1,3 @@
-# Jenkinsfile repository
+# Jenkins repository
 
-CI / CD Pipeline for deploying code in GKE Cluster
+THIS REPOSITORY IS FOR JENKINS TESTING.
