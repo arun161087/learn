@@ -1,22 +1,28 @@
 pipeline {
   agent {
     kubernetes {
+      label 'jenkin-slave'  
       yamlFile 'jenkins-worker-pod.yaml'
-      defaultContainer 'maven'
+      defaultContainer 'ubuntu'
     }
   }
   stages {
-    stage('Run maven') {
+    stage('Build') {
+      steps { 
+        sh "echo this is Build stage"   
+      }
+    }
+    stage('Docker') {
       steps {
-        sh 'set'
-        sh "echo OUTSIDE_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}"
-        container('maven') {
-          sh 'echo MAVEN_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
-          sh 'mvn -version'
+        container('docker') {  
+          sh "docker version"        
         }
-        container('busybox') {
-          sh 'echo BUSYBOX_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
-          sh '/bin/busybox'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        container('ubuntu') {  
+          sh "echo this is Deploy stage"        
         }
       }
     }
