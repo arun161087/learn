@@ -2,6 +2,7 @@ pipeline {
   agent {
     kubernetes {
       yamlFile 'jenkins-worker-pod.yaml'
+      defaultContainer 'maven'
     }
   }
   stages {
